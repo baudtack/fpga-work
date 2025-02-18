@@ -5,12 +5,19 @@ module led_toggle(
   
   reg rled = 1'b0;
   reg rswitch = 1'b0;
+  wire wswitch;
+
+  Debounce deb
+  (.clock(clock),
+   .in(switch1),
+   .out(wswitch));
+
 
   always @(posedge clock)
   begin
-    rswitch <= switch1;
+    rswitch <= wswitch;
 
-    if(switch1 == 1'b0 && rswitch == 1'b1)
+    if(wswitch == 1'b0 && rswitch == 1'b1)
     begin
       rled <= ~rled;
     end

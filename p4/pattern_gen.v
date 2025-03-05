@@ -30,7 +30,7 @@ module pattern_gen
         .vgahsync(hsync),
         .vgavsync(vsync),
         .ohsync(whsync),
-        .ovsync(wvsync)
+        .ovsync(wvsync),
         .col(colcount),
         .row(rowcount));
 

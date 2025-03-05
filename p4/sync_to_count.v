@@ -33,9 +33,8 @@ module sync_to_count
         col <= col + 1;
       end
     end
-
-    assign framestart = (~ovsync & vgavsync);
-    
   end
+
+  assign framestart = (~ovsync & vgavsync);
 
 endmodule

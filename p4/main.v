@@ -1,0 +1,76 @@
+module main
+  (input clock,
+   output vgahsync,
+   output vgavsync,
+   output vgared0,
+   output vgared1,
+   output vgared2,
+   output vgagreen0,
+   output vgagreen1,
+   output vgagreen2,
+   output vgablue0,
+   output vgablue1,
+   output vgablue2);
+
+  parameter VIDEO_WIDTH = 3;
+  parameter TOTAL_COLS = 800;
+  parameter TOTAL_ROWS = 525;
+  parameter ACTIVE_COLS = 640;
+  parameter ACTIVE_ROWS = 480;
+
+  wire [VIDEO_WIDTH-1:0] w_red_tp, w_red_porch;
+  wire [VIDEO_WIDTH-1:0] w_green_tp, w_green_porch;
+  wire [VIDEO_WIDTH-1:0] w_blue_tp, w_blue_porch;
+
+  vga_sync_pulses #(.TOTAL_COLS(TOTAL_COLS),
+                    .TOTAL_ROWS(TOTAL_ROWS),
+                    .ACTIVE_COLS(ACTIVE_COLS),
+                    .ACTIVE_ROWS(ACTIVE_ROWS))
+  vspi
+    (.clock(clock),
+     .hsync(w_hsync),
+     .vsync(w_vsync),
+     .col(),
+     .row());
+
+
+  pattern_gen #(.VIDEO_WIDTH(VIDEO_WIDTH),
+                .TOTAL_COLS(TOTAL_COLS),
+                .TOTAL_ROWS(TOTAL_ROWS),
+                .ACTIVE_COLS(ACTIVE_COLS),
+                .ACTIVE_ROWS(ACTIVE_ROWS))
+     pg
+      (.clock(clock),
+       .hsync(w_hsync),
+       .vsync(w_vsync),
+       .ohsync(w_hsync_tp),
+       .ovsync(w_vsync_tp),
+       .redv(w_red_tp),
+       .grnv(w_green_tp),
+       .bluv(w_blue_tp));
+
+
+  vga_sync_porch #(.VIDEO_WIDTH(VIDEO_WIDTH),
+                   .TOTAL_COLS(TOTAL_COLS),
+                   .TOTAL_ROWS(TOTAL_ROWS),
+                   .ACTIVE_COLS(ACTIVE_COLS),
+                   .ACTIVE_ROWS(ACTIVE_ROWS))
+
+        vsp
+         (.clock(clock),
+          .ihsync(w_hsync_tp),
+          .ivsync(w_vsync_tp),
+          .iredv(w_red_tp),
+          .igrnv(w_green_tp),
+          .ibluv(w_blue_tp),
+          .hsync(w_hsync_vsp),
+          .vsync(w_vsync_vsp)
+          .oredv(w_red_vsp),
+          .ogrnv(w_green_vsp),
+          .obluv(w_blue_vsp));
+
+          //still need to finsih this off?
+          //probably should rewrite a lot of this to be clearer
+          //
+
+endmodule

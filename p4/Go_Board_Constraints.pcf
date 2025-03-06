@@ -44,7 +44,7 @@ set_io vgagreen1 30
 set_io vgagreen2 33
 set_io vgablue0 28
 set_io vgablue1 41
-set_io bgablue2 42
+set_io vgablue2 42
 
 ## PMOD Signals
 set_io pmod1 65

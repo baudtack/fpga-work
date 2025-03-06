@@ -1,4 +1,9 @@
-module main
+module main #(parameter VIDEO_WIDTH = 3,
+              parameter TOTAL_COLS = 800,
+              parameter TOTAL_ROWS = 525,
+              parameter ACTIVE_COLS = 640,
+              parameter ACTIVE_ROWS = 480)
+
   (input clock,
    output vgahsync,
    output vgavsync,
@@ -12,15 +17,10 @@ module main
    output vgablue1,
    output vgablue2);
 
-  parameter VIDEO_WIDTH = 3;
-  parameter TOTAL_COLS = 800;
-  parameter TOTAL_ROWS = 525;
-  parameter ACTIVE_COLS = 640;
-  parameter ACTIVE_ROWS = 480;
-
   wire [VIDEO_WIDTH-1:0] w_red_tp, w_red_vsp;
   wire [VIDEO_WIDTH-1:0] w_green_tp, w_green_vsp;
   wire [VIDEO_WIDTH-1:0] w_blue_tp, w_blue_vsp;
+
 
   vga_sync_pulses #(.TOTAL_COLS(TOTAL_COLS),
                     .TOTAL_ROWS(TOTAL_ROWS),
@@ -32,7 +32,6 @@ module main
      .vsync(w_vsync),
      .col(),
      .row());
-
 
   pattern_gen #(.VIDEO_WIDTH(VIDEO_WIDTH),
                 .TOTAL_COLS(TOTAL_COLS),
@@ -69,7 +68,7 @@ module main
           .ogrnv(w_green_vsp),
           .obluv(w_blue_vsp));
 
-          
+
   assign vgahsync = w_hsync_vsp;
   assign vgavsync = w_vsync_vsp;
 

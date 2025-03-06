@@ -1,5 +1,5 @@
 module vga_sync_porch #(parameter VIDEO_WIDTH = 3,
-                        parameter TOTAL_COL = 800,
+                        parameter TOTAL_COLS = 800,
                         parameter TOTAL_ROWS = 525,
                         parameter ACTIVE_COLS = 640,
                         parameter ACTIVE_ROWS = 480)

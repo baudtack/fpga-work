@@ -4,12 +4,12 @@ module vga_sync_pulses_tb();
 
   always #2 clock <= ~clock;
 
-  wire c, r;
+  wire [9:0] c, r;
 
   vga_sync_pulses vsp
    (.clock(clock),
-   .hsync(ohsync),
-   .vsync(ovsync),
+   .ohsync(ohsync),
+   .ovsync(ovsync),
    .col(c),
    .row(r));
 

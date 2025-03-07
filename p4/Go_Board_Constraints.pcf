@@ -34,8 +34,8 @@ set_io uartrx 73
 set_io uarttx 74
 
 ## VGA Outputs
-set_io vgahsync 26
-set_io vgavsync 27
+set_io vga_hsync 26
+set_io vga_vsync 27
 set_io vgared0 36
 set_io vgared1 37
 set_io vgared2 40

@@ -5,8 +5,8 @@ module pattern_gen
     parameter ACTIVE_COLS = 640,
     parameter ACTIVE_ROWS = 480)
   (input clock,
-   input hsync,
-   input vsync,
+   input ihsync,
+   input ivsync,
    output reg ohsync = 0,
    output reg ovsync = 0,
    output reg [VIDEO_WIDTH-1:0] redv,
@@ -27,8 +27,8 @@ module pattern_gen
   sync_to_count #(.TOTAL_COLS(TOTAL_COLS),
                   .TOTAL_ROWS(TOTAL_ROWS))
   sync (.clock(clock),
-        .vgahsync(hsync),
-        .vgavsync(vsync),
+        .ihsync(ihsync),
+        .ivsync(ivsync),
         .ohsync(whsync),
         .ovsync(wvsync),
         .col(colcount),

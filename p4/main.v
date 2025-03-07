@@ -5,8 +5,8 @@ module main #(parameter VIDEO_WIDTH = 3,
               parameter ACTIVE_ROWS = 480)
 
   (input clock,
-   output vgahsync,
-   output vgavsync,
+   output vga_hsync,
+   output vga_vsync,
    output vgared0,
    output vgared1,
    output vgared2,
@@ -21,15 +21,18 @@ module main #(parameter VIDEO_WIDTH = 3,
   wire [VIDEO_WIDTH-1:0] w_green_tp, w_green_vsp;
   wire [VIDEO_WIDTH-1:0] w_blue_tp, w_blue_vsp;
 
-
+  wire w_hsync,     w_vsync,
+       w_hsync_tp,  w_vsync_tp,
+       w_hsync_vsp, w_vsync_vsp;
+  
   vga_sync_pulses #(.TOTAL_COLS(TOTAL_COLS),
                     .TOTAL_ROWS(TOTAL_ROWS),
                     .ACTIVE_COLS(ACTIVE_COLS),
                     .ACTIVE_ROWS(ACTIVE_ROWS))
   vspi
     (.clock(clock),
-     .hsync(w_hsync),
-     .vsync(w_vsync),
+     .ohsync(w_hsync),
+     .ovsync(w_vsync),
      .col(),
      .row());
 
@@ -40,8 +43,8 @@ module main #(parameter VIDEO_WIDTH = 3,
                 .ACTIVE_ROWS(ACTIVE_ROWS))
      pg
       (.clock(clock),
-       .hsync(w_hsync),
-       .vsync(w_vsync),
+       .ihsync(w_hsync),
+       .ivsync(w_vsync),
        .ohsync(w_hsync_tp),
        .ovsync(w_vsync_tp),
        .redv(w_red_tp),
@@ -62,15 +65,15 @@ module main #(parameter VIDEO_WIDTH = 3,
           .iredv(w_red_tp),
           .igrnv(w_green_tp),
           .ibluv(w_blue_tp),
-          .hsync(w_hsync_vsp),
-          .vsync(w_vsync_vsp),
+          .ohsync(w_hsync_vsp),
+          .ovsync(w_vsync_vsp),
           .oredv(w_red_vsp),
           .ogrnv(w_green_vsp),
           .obluv(w_blue_vsp));
 
 
-  assign vgahsync = w_hsync_vsp;
-  assign vgavsync = w_vsync_vsp;
+  assign vga_hsync = w_hsync_vsp;
+  assign vga_vsync = w_vsync_vsp;
 
   assign vgared0 = w_red_vsp[0];
   assign vgared1 = w_red_vsp[1];

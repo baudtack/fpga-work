@@ -4,8 +4,8 @@ module vga_sync_pulses
     parameter ACTIVE_COLS = 640,
     parameter ACTIVE_ROWS = 480)
   (input clock,
-   output hsync,
-   output vsync,
+   output ohsync,
+   output ovsync,
    output reg [9:0] col = 0,
    output reg [9:0] row = 0);
 
@@ -22,7 +22,7 @@ module vga_sync_pulses
     end
   end
 
-  assign hsync = col < ACTIVE_COLS ? 1'b1 : 1'b0;
-  assign vsync = row < ACTIVE_ROWS ? 1'b1 : 1'b0;
+  assign ohsync = col < ACTIVE_COLS ? 1'b1 : 1'b0;
+  assign ovsync = row < ACTIVE_ROWS ? 1'b1 : 1'b0;
 
 endmodule

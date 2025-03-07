@@ -9,8 +9,8 @@ module vga_sync_porch #(parameter VIDEO_WIDTH = 3,
  input [VIDEO_WIDTH-1:0] iredv,
  input [VIDEO_WIDTH-1:0] igrnv,
  input [VIDEO_WIDTH-1:0] ibluv,
- output reg hsync,
- output reg vsync,
+ output reg ohsync,
+ output reg ovsync,
  output reg [VIDEO_WIDTH-1:0] oredv, 
  output reg [VIDEO_WIDTH-1:0] ogrnv,
  output reg [VIDEO_WIDTH-1:0] obluv
@@ -34,8 +34,8 @@ module vga_sync_porch #(parameter VIDEO_WIDTH = 3,
   sync_to_count #(.TOTAL_COLS(TOTAL_COLS),
                   .TOTAL_ROWS(TOTAL_ROWS))
      stc (.clock(clock),
-          .vgahsync(ihsync),
-          .vgavsync(ivsync),
+          .ihsync(ihsync),
+          .ivsync(ivsync),
           .ohsync(w_hsync),
           .ovsync(w_vsync),
           .col(col),
@@ -44,15 +44,15 @@ module vga_sync_porch #(parameter VIDEO_WIDTH = 3,
   always @(posedge clock) begin
     if((col < FRONT_PORCH_HORZ + ACTIVE_COLS) ||
         col > TOTAL_COLS - BACK_PORCH_HORZ - 1)
-      hsync <= 1'b1;
+      ohsync <= 1'b1;
     else 
-      hsync <= w_hsync;
+      ohsync <= w_hsync;
 
     if((row < FRONT_PORCH_VERT + ACTIVE_ROWS) ||
         row > TOTAL_ROWS - BACK_PORCH_HORZ -1)
-      vsync <= 1'b1;
+      ovsync <= 1'b1;
     else
-      vsync <= w_vsync;
+      ovsync <= w_vsync;
   end
  
   always @(posedge clock) begin

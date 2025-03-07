@@ -2,8 +2,8 @@ module sync_to_count
   #(parameter TOTAL_COLS = 800,
     parameter TOTAL_ROWS = 525)
   (input clock,
-   input vgahsync,
-   input vgavsync,
+   input ihsync,
+   input ivsync,
    output reg ohsync = 0,
    output reg ovsync = 0,
    output reg [9:0] col = 0, // 10 bits for 1024
@@ -13,8 +13,8 @@ module sync_to_count
 
   always @(posedge clock)
   begin
-    ohsync <= vgahsync;
-    ovsync <= vgavsync;
+    ohsync <= ihsync;
+    ovsync <= ivsync;
   end
 
   always @(posedge clock) begin
@@ -35,6 +35,6 @@ module sync_to_count
     end
   end
 
-  assign framestart = (~ovsync & vgavsync);
+  assign framestart = (~ovsync & ivsync);
 
 endmodule

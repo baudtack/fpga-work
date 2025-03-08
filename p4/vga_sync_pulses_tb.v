@@ -17,7 +17,7 @@ module vga_sync_pulses_tb();
      $dumpfile("vga_sync_pulses_tb.vcd");
      $dumpvars;
      $display("starting tb");
-     #20000
+     #90000
      $finish();
    end
 

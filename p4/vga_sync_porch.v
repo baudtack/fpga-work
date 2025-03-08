@@ -43,13 +43,13 @@ module vga_sync_porch #(parameter VIDEO_WIDTH = 3,
 
   always @(posedge clock) begin
     if((col < FRONT_PORCH_HORZ + ACTIVE_COLS) ||
-        col > TOTAL_COLS - BACK_PORCH_HORZ - 1)
+       (col > TOTAL_COLS - BACK_PORCH_HORZ - 1))
       ohsync <= 1'b1;
     else 
       ohsync <= w_hsync;
 
     if((row < FRONT_PORCH_VERT + ACTIVE_ROWS) ||
-        row > TOTAL_ROWS - BACK_PORCH_HORZ -1)
+       (row > TOTAL_ROWS - BACK_PORCH_VERT -1))
       ovsync <= 1'b1;
     else
       ovsync <= w_vsync;

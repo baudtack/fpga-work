@@ -1,0 +1,57 @@
+### Main FPGA Clock
+set_io clock 15
+
+### LED Pins:
+set_io led1 56
+set_io led2 57
+set_io led3 59
+set_io led4 60
+
+## Push-Button Switches
+set_io switch1 53
+set_io switch2 51
+set_io switch3 54
+set_io switch4 52
+
+### 7 Segment Outputs
+set_io segment1a 3
+set_io segment1b 4
+set_io segment1c 93
+set_io segment1d 91
+set_io segment1e 90
+set_io segment1f 1
+set_io segment1g 2
+set_io segment2a 100
+set_io segment2b 99
+set_io segment2c 97
+set_io segment2d 95
+set_io segment2e 94
+set_io segment2f 8
+set_io segment2g 96
+
+## UART Outputs
+set_io uartrx 73
+set_io uarttx 74
+
+## VGA Outputs
+set_io vga_hsync 26
+set_io vga_vsync 27
+set_io vgared0 36
+set_io vgared1 37
+set_io vgared2 40
+set_io vgagreen0 29
+set_io vgagreen1 30
+set_io vgagreen2 33
+set_io vgablue0 28
+set_io vgablue1 41
+set_io vgablue2 42
+
+## PMOD Signals
+set_io pmod1 65
+set_io pmod2 64
+set_io pmod3 63
+set_io pmod4 62
+set_io pmod7 78
+set_io pmod8 79
+set_io pmod9 80
+set_io pmod10 81
